@@ -31,7 +31,7 @@ const app = new Vue({
     submitForm() {
       const { apiOrigin, apiFormatterBody } = this.formData
       chrome.storage.sync.set({ apiOrigin, apiFormatterBody }, () => {
-        this.$message.success('保存成功！')
+        this.$message.success('保存成功，请刷新原页面后重试！')
       })
     },
     onReset() {
