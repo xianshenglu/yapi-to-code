@@ -2,11 +2,7 @@
   "name": "yapi-to-code",
   "version": "0.1",
   "description": "yapi-to-code!",
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": ["storage"],
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
