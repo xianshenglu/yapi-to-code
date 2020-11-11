@@ -35,3 +35,11 @@ git clone https://github.com/xianshenglu/yapi-to-code.git
 1. Configure the required fields Or you can configure it later after you get the generated code.
 2. Go back to your yApi site and reload!
 3. Operate like [Usage](#usage) and go back to step 5 if you want.
+
+## Todo
+
+- [ ] Add tests
+- [ ] Generate mock response
+- [ ] Generate Element-ui Table code
+- [ ] Generate formData
+- [ ] Highlight custom code
