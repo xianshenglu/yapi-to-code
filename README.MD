@@ -1,5 +1,6 @@
 # yapi-to-code
 
+先修 eslint 配置和依赖，在处理其
 A chrome extension to generate code for [yApi](https://github.com/YMFE/yapi).
 
 ## Usage
@@ -43,3 +44,4 @@ git clone https://github.com/xianshenglu/yapi-to-code.git
 - [ ] Generate Element-ui Table code
 - [ ] Generate formData
 - [ ] Highlight custom code
+- [ ] Improve build config

@@ -10,10 +10,7 @@ module.exports = {
     browser: true,
   },
   globals: {
-    Vue: true,
     chrome: true,
-    axios: true,
-    ClipboardJS: true,
   },
   extends: ['@xianshenglu/eslint-config/javascript-vue'],
   overrides: [
