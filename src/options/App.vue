@@ -1,7 +1,7 @@
 <template>
   <div class="App">
     <h1>自定义配置页</h1>
-    <el-form :model="formData" ref="form" :rules="rules">
+    <el-form ref="form" :model="formData" :rules="rules">
       <el-form-item label="API 地址：" prop="apiOrigin">
         <el-input v-model="formData.apiOrigin"></el-input>
       </el-form-item>
@@ -59,7 +59,7 @@ export default {
         this.$message.success('保存成功，请刷新原页面后重试！')
       })
     },
-    onReset() {      
+    onReset() {
       this.$message.warning('暂未实现！')
     },
   },
