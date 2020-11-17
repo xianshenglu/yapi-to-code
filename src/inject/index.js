@@ -1,7 +1,7 @@
 import axios from 'axios'
 import CodeGen from './codeGen'
 
-import { API_FORMATTER_STR, API_ORIGIN } from './constants'
+import { API_FORMATTER_STR, API_ORIGIN } from '../constants'
 
 // eslint-disable-next-line no-unused-vars
 function hyphenToPascal(str) {
@@ -11,12 +11,9 @@ function hyphenToPascal(str) {
 }
 //
 function init(config) {
-  const {
-    apiOrigin = API_ORIGIN,
-    apiFormatterBody = API_FORMATTER_STR,
-  } = config
+  const { apiOrigin = API_ORIGIN, apiFormatterStr = API_FORMATTER_STR } = config
 
-  chrome.storage.sync.set({ apiOrigin, apiFormatterBody })
+  chrome.storage.sync.set({ apiOrigin, apiFormatterStr })
 
   CodeGen.apiOrigin = apiOrigin
 
@@ -34,7 +31,7 @@ function init(config) {
       })
     },
     // eslint-disable-next-line no-new-func
-    formatter: new Function('data', apiFormatterBody),
+    formatter: new Function('data', apiFormatterStr),
   })
   apiCodeGen.init()
 
