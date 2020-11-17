@@ -3,13 +3,6 @@ import CodeGen from './codeGen'
 import { API_FORMATTER_STR, API_ORIGIN } from '../constants'
 import { getApiInfo } from '../apis'
 
-// eslint-disable-next-line no-unused-vars
-function hyphenToPascal(str) {
-  return str
-    .replace(/-([a-z])/g, (...args) => args[1].toUpperCase())
-    .replace(/[a-z]/, (...args) => args[0].toUpperCase())
-}
-//
 function init(config) {
   const { apiOrigin = API_ORIGIN, apiFormatterStr = API_FORMATTER_STR } = config
 
@@ -22,7 +15,7 @@ function init(config) {
       return getApiInfo(apiOrigin, { id })
     },
     // eslint-disable-next-line no-new-func
-    formatter: new Function('data', apiFormatterStr),
+    formatter: new Function(`return ${apiFormatterStr.trim()}`)(),
   })
   apiCodeGen.init()
 
