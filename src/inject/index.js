@@ -1,7 +1,7 @@
-import axios from 'axios'
 import CodeGen from './codeGen'
 
 import { API_FORMATTER_STR, API_ORIGIN } from '../constants'
+import { getApiInfo } from '../apis'
 
 // eslint-disable-next-line no-unused-vars
 function hyphenToPascal(str) {
@@ -21,14 +21,7 @@ function init(config) {
     name: '获取 API 代码',
     request: () => {
       const id = window.location.pathname.split('/').slice(-1)[0]
-      return axios({
-        url: `${apiOrigin}/api/interface/get?id=${id}`,
-        headers: {
-          accept: 'application/json',
-        },
-        method: 'GET',
-        withCredentials: true,
-      })
+      return getApiInfo(apiOrigin, { id })
     },
     // eslint-disable-next-line no-new-func
     formatter: new Function('data', apiFormatterStr),
