@@ -13,7 +13,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="onReset">重置成初始值</el-button>
+        <el-button @click="onReset">重置为插件默认值</el-button>
         <el-button @click="window.close()">取消</el-button>
         <el-button type="primary" @click="onSubmit">保存</el-button>
       </el-form-item>
@@ -66,7 +66,14 @@ export default {
       })
     },
     onReset() {
-      this.$message.warning('暂未实现！')
+      const formData = {
+        apiOrigin: API_ORIGIN,
+        apiFormatterStr: API_FORMATTER_STR,
+      }
+      chrome.storage.sync.set(formData, () => {
+        this.initFormData()
+        this.$message.success('重置成功！')
+      })
     },
   },
 }
