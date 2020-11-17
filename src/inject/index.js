@@ -13,8 +13,6 @@ function hyphenToPascal(str) {
 function init(config) {
   const { apiOrigin = API_ORIGIN, apiFormatterStr = API_FORMATTER_STR } = config
 
-  chrome.storage.sync.set({ apiOrigin, apiFormatterStr })
-
   CodeGen.apiOrigin = apiOrigin
 
   const apiCodeGen = new CodeGen({
