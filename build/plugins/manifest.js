@@ -19,8 +19,10 @@ class Manifest {
     const { targetPath } = arg
     const { templatePath, targetFilepath } = this.options
 
+    delete require.cache[require.resolve(templatePath)]
     // eslint-disable-next-line
     const manifest = require(templatePath)
+
     let { js, css } = manifest.content_scripts[0]
 
     if (!Array.isArray(js)) {
