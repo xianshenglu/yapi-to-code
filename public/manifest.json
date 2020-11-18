@@ -18,7 +18,7 @@
     "48": "./public/images/logo48.png",
     "128": "./public/images/logo48.png"
   },
-  "options_page": "./dist/options/index.html",
+  "options_page": "./options/index.html",
   "content_scripts": [
     {
       "matches": [

@@ -17,7 +17,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new Manifest({
       templatePath: path.resolve(__dirname, '../../public/manifest.json'),
-      targetFilepath: path.resolve(__dirname, '../../manifest.json'),
+      targetFilepath: path.resolve(__dirname, '../../dist/manifest.json'),
     }),
   ],
 }
