@@ -1,4 +1,6 @@
-const injectConf = require('./inject/webpack.prod.conf')
-const optionsConf = require('./options/webpack.prod.conf')
+const base = require('./webpack.base.conf')
 
-module.exports = [injectConf, optionsConf]
+module.exports = {
+  mode: 'production',
+  ...base,
+}

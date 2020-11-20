@@ -1,4 +1,11 @@
-const injectConf = require('./inject/webpack.dev.conf')
-const optionsConf = require('./options/webpack.dev.conf')
+const ExtensionReloader = require('webpack-extension-reloader')
+const base = require('./webpack.base.conf')
 
-module.exports = [injectConf, optionsConf]
+const { plugins, ...otherConfig } = base
+const config = {
+  mode: 'development',
+  ...otherConfig,
+  plugins: [new ExtensionReloader(), ...plugins],
+  devtool: 'inline-source-map',
+}
+module.exports = config
