@@ -4,7 +4,7 @@
   "description": "yapi-to-code!",
   "permissions": ["storage"],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["static/background.js"],
     "persistent": false
   },
   "page_action": {
@@ -22,14 +22,14 @@
     "48": "./public/images/logo48.png",
     "128": "./public/images/logo48.png"
   },
-  "options_page": "./options/index.html",
+  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": [
         "https://*/project/*/interface/api/*",
         "http://*/project/*/interface/api/*"
       ],
-      "js": ["inject.js"]
+      "js": ["static/inject.js"]
     }
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",

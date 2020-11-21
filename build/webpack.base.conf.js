@@ -13,9 +13,10 @@ module.exports = {
   },
   output: {
     filename: (pathData) => {
+      // only options are inserted to the html by plugin, others are hardcoded in the manifest.json
       return pathData.chunk.name === 'options'
         ? 'static/[name].[contenthash].js'
-        : '[name].js'
+        : 'static/[name].js'
     },
     path: path.resolve(__dirname, '../dist/'),
   },
@@ -60,8 +61,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       chunks: ['options'],
-      filename: 'options/index.html',
-      template: path.resolve(__dirname, '../public/options/index.html'),
+      filename: 'options.html',
+      template: path.resolve(__dirname, '../public/options.html'),
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
@@ -71,7 +72,10 @@ module.exports = {
       },
     }),
     new CopyPlugin({
-      patterns: [{ from: './public/manifest.json', to: 'manifest.json' }],
+      patterns: [
+        { from: './public/manifest.json', to: 'manifest.json' },
+        { from: './public/static', to: './static' },
+      ],
     }),
   ],
 }
