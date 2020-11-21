@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src --ext .{js,vue} --fix",
+    "lint": "eslint --fix --ext .js,.vue src/",
     "dev": "webpack --watch --config ./build/webpack.dev.conf.js",
     "build": "webpack --config ./build/webpack.prod.conf.js"
   },
