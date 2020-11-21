@@ -8,6 +8,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 module.exports = {
   entry: {
     options: './src/options/main.js',
+    background: './src/background/index.js',
     inject: './src/inject/index.js',
   },
   output: {
