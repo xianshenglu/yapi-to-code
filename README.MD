@@ -1,47 +1,53 @@
 # yapi-to-code
 
-先修 eslint 配置和依赖，在处理其
+![Build](https://github.com/xianshenglu/yapi-to-code/workflows/Build/badge.svg)
+
 A chrome extension to generate code for [yApi](https://github.com/YMFE/yapi).
 
 ## Usage
 
-![](./images/getApiCode.png)
+![](./public/static/images/getApiCode.png)
 
-![](./images/optionsPage.png)
+![](./public/static/images/optionsPage.png)
 
 ## Install
 
-~~install by [chrome extension]()~~
+install by [chrome extension](https://chrome.google.com/webstore/detail/yapi-to-code/opdpdamkglmplgokmneddngabjpcailp)
 
 Or
 
-1. clone the project
+1. Clone the project
 
 ```bash
 git clone https://github.com/xianshenglu/yapi-to-code.git
 ```
 
-2. Click the `Load unpacked` button in `chrome://extensions/` page.
+2. Unzip the _dist.zip_ file.
 
-![](./images/loadUnpacked.png)
+3. Click the `Load unpacked` button in `chrome://extensions/` page and choose _dist_ folder.
 
-3. Click the `detail` button
+![](./public/static/images/loadUnpacked.png)
 
-![](./images/extensionPage.png)
+4. Click the `detail` button
 
-1. Scroll to bottom and click the `Extension options`
+![](./public/static/images/extensionPage.png)
 
-![](./images/detailPage.png)
+5. Scroll to bottom and click the `Extension options`
 
-1. Configure the required fields Or you can configure it later after you get the generated code.
-2. Go back to your yApi site and reload!
-3. Operate like [Usage](#usage) and go back to step 5 if you want.
+![](./public/static/images/detailPage.png)
+
+6. Configure the required fields Or you can configure it later after you get the generated code. **You must re-configure `API 地址` at least.**
+
+7. Go back to your yApi site and reload!
+
+8. Operate like [Usage](#usage) and go back to step 5 if you want.
 
 ## Todo
 
-- [ ] Add tests
+- [x] Highlight custom code
+- [x] Generate Table code
 - [ ] Generate mock response
-- [ ] Generate Element-ui Table code
+- [ ] Refactor with vue3 and typescript.
 - [ ] Generate formData
-- [ ] Highlight custom code
+- [ ] Add tests
 - [ ] Improve build config
