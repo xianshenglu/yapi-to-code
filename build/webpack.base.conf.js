@@ -1,9 +1,9 @@
 const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks')
 
 module.exports = {
   entry: {
@@ -58,12 +58,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       chunks: ['options'],
       filename: 'options.html',
       template: path.resolve(__dirname, '../public/options.html'),
     }),
+    new CleanObsoleteChunks(),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // determine the output path
