@@ -1,9 +1,11 @@
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import { Form, FormItem, Input, Button } from 'element-ui'
 import App from './App.vue'
 
-Vue.use(ElementUI)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Button)
+Vue.use(Input)
 
 // eslint-disable-next-line no-new
 new Vue({
