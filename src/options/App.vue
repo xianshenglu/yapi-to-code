@@ -6,7 +6,7 @@
         <el-input v-model="formData.apiOrigin"></el-input>
       </el-form-item>
       <el-form-item
-        label="自定义前端 API 代码："
+        label="自定义生成 API 代码："
         prop="apiFormatterStr"
         class="form-item--code-editor"
       >

@@ -10,7 +10,7 @@ function init(config) {
   CodeGen.apiOrigin = apiOrigin
 
   const apiCodeGen = new CodeGen({
-    name: '获取 API 代码',
+    name: '生成 API 代码',
     request: () => {
       return getApiInfo(apiOrigin, { id: getApiId() })
     },
@@ -20,17 +20,17 @@ function init(config) {
   apiCodeGen.init()
 
   const reqParamCodeGen = new CodeGen({
-    name: '获取 FormData 代码',
+    name: '生成 请求 FormData 代码',
   })
   reqParamCodeGen.hide()
 
   const responseToTableGen = new CodeGen({
-    name: '获取 ElTable 代码',
+    name: '生成 响应 ElTable 代码',
   })
   responseToTableGen.hide()
 
   const responseMockCodeGen = new CodeGen({
-    name: '获取 响应 Mock 代码',
+    name: '生成 响应 Mock 代码',
   })
   responseMockCodeGen.hide()
 }
