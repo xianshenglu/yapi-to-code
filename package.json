@@ -12,7 +12,8 @@
     "dev": "webpack --watch --config ./build/webpack.dev.conf.js",
     "build": "webpack --config ./build/webpack.prod.conf.js",
     "analyze": "webpack --config ./build/webpack.prod.conf.js --analyze",
-    "publish": "node ./build/publish.js "
+    "publish": "node ./build/publish.js ",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -30,12 +31,17 @@
   "devDependencies": {
     "@babel/core": "^7.12.7",
     "@babel/preset-env": "^7.12.7",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@release-it/conventional-changelog": "^2.0.0",
     "@xianshenglu/eslint-config": "^1.0.0",
     "archiver": "^5.1.0",
     "babel-loader": "^8.2.1",
     "babel-plugin-component": "^1.1.1",
+    "commitizen": "^4.2.2",
     "copy-webpack-plugin": "^6.3.2",
     "css-loader": "^5.0.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.13.0",
     "eslint-plugin-import": "^2.22.1",
     "file-loader": "^6.2.0",
@@ -46,6 +52,7 @@
     "monaco-editor-webpack-plugin": "^2.0.0",
     "node-sass": "^5.0.0",
     "prettier": "^2.1.2",
+    "release-it": "^14.2.1",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
@@ -64,5 +71,10 @@
     "lodash": "^4.17.20",
     "monaco-editor": "^0.21.2",
     "vue": "^2.6.12"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
