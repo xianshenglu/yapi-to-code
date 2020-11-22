@@ -41,7 +41,12 @@ export default class CodeGen {
 
   async init() {
     const { data } = await this.request()
-    const result = this.formatter(data)
+    let result = ''
+    try {
+      result = this.formatter(data)
+    } catch (error) {
+      result = '请检查数据结构 或 自定义的 生成代码！'
+    }
     this.el.dataset.clipboardText = result
     new ClipboardJS(this.el).on('error', function () {
       // eslint-disable-next-line no-alert

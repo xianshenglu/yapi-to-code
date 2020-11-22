@@ -26,3 +26,14 @@ export const API_FORMATTER_STR = function fn(data) {
         `
   return resultStr
 }.toString()
+
+export const RESPONSE_TO_TABLE_CONF_STR = function fn(data) {
+  // 接受一个参数 data , 返回希望生成的代码
+  const resBody = JSON.parse(data.data.res_body)
+  const tableColumnConf =
+    resBody.properties.result.properties.list.items.properties
+  const result = Object.entries(tableColumnConf).map(([prop, val]) => {
+    return { prop, label: val.description }
+  })
+  return JSON.stringify(result, null, 2)
+}.toString()

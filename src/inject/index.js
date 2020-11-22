@@ -1,11 +1,19 @@
 import CodeGen from './codeGen'
 
-import { API_FORMATTER_STR, API_ORIGIN } from '../constants'
+import {
+  API_FORMATTER_STR,
+  API_ORIGIN,
+  RESPONSE_TO_TABLE_CONF_STR,
+} from '../constants'
 import { getApiInfo } from '../apis'
 import { getApiId } from '../utils'
 
 function init(config) {
-  const { apiOrigin = API_ORIGIN, apiFormatterStr = API_FORMATTER_STR } = config
+  const {
+    apiOrigin = API_ORIGIN,
+    apiFormatterStr = API_FORMATTER_STR,
+    responseToTableConfStr = RESPONSE_TO_TABLE_CONF_STR,
+  } = config
 
   CodeGen.apiOrigin = apiOrigin
 
@@ -24,10 +32,15 @@ function init(config) {
   })
   reqParamCodeGen.hide()
 
-  const responseToTableGen = new CodeGen({
-    name: '生成 响应 ElTable 代码',
+  const responseToTableConfGen = new CodeGen({
+    name: '生成 响应 Table 代码',
+    request: () => {
+      return getApiInfo(apiOrigin, { id: getApiId() })
+    },
+    // eslint-disable-next-line no-new-func
+    formatter: new Function(`return (${responseToTableConfStr})`)(),
   })
-  responseToTableGen.hide()
+  responseToTableConfGen.init()
 
   const responseMockCodeGen = new CodeGen({
     name: '生成 响应 Mock 代码',

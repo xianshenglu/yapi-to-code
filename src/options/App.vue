@@ -5,12 +5,17 @@
       <el-form-item label="API 地址：" prop="apiOrigin">
         <el-input v-model="formData.apiOrigin"></el-input>
       </el-form-item>
+      <el-form-item label="自定义 生成 API 代码：" prop="apiFormatterStr">
+        <div id="api-formatter-str" class="editor-cont"></div>
+      </el-form-item>
       <el-form-item
-        label="自定义生成 API 代码："
-        prop="apiFormatterStr"
-        class="form-item--code-editor"
+        label="自定义 生成 响应 Table 代码："
+        prop="responseToTableConfStr"
       >
-        <div id="api-formatter-str" class="code-editor-cont"></div>
+        <div
+          id="response-to-table-conf-str"
+          class="editor-cont editor-cont--height-small"
+        ></div>
       </el-form-item>
       <el-form-item>
         <el-button @click="onReset">重置为插件默认值</el-button>
@@ -23,9 +28,14 @@
 
 <script>
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
-import { API_ORIGIN, API_FORMATTER_STR } from '../constants'
+import {
+  API_ORIGIN,
+  API_FORMATTER_STR,
+  RESPONSE_TO_TABLE_CONF_STR,
+} from '../constants'
 
-let editor = null
+let apiFormatterEditor = null
+let responseToTableConfEditor = null
 export default {
   name: 'App',
   data() {
@@ -33,10 +43,12 @@ export default {
       formData: {
         apiOrigin: '',
         apiFormatterStr: '',
+        responseToTableConfStr: '',
       },
       rules: {
         apiOrigin: [{ required: true, message: '必填！' }],
         apiFormatterStr: [{ required: true, message: '必填！' }],
+        responseToTableConfStr: [{ required: true, message: '必填！' }],
       },
     }
   },
@@ -49,28 +61,50 @@ export default {
         const {
           apiOrigin = API_ORIGIN,
           apiFormatterStr = API_FORMATTER_STR,
+          responseToTableConfStr = RESPONSE_TO_TABLE_CONF_STR,
         } = data
-        Object.assign(this.formData, { apiOrigin, apiFormatterStr })
-        this.resetCodeEditor(apiFormatterStr)
+        Object.assign(this.formData, {
+          apiOrigin,
+          apiFormatterStr,
+          responseToTableConfStr,
+        })
+        this.resetCodeEditor(this.formData)
       })
     },
-    resetCodeEditor(value) {
-      if (editor === null) {
-        this.initCodeEditor(value)
-        return
+    resetCodeEditor({ apiFormatterStr, responseToTableConfStr }) {
+      if (apiFormatterEditor === null) {
+        const el = document.getElementById('api-formatter-str')
+        apiFormatterEditor = this.initCodeEditor({
+          el,
+          value: apiFormatterStr,
+          onDidChangeContent: () => {
+            this.formData.apiFormatterStr = apiFormatterEditor.getValue()
+          },
+        })
+      } else {
+        apiFormatterEditor.setValue(apiFormatterEditor)
       }
-      editor.setValue(value)
+      if (responseToTableConfEditor === null) {
+        const el = document.getElementById('response-to-table-conf-str')
+        responseToTableConfEditor = this.initCodeEditor({
+          el,
+          value: responseToTableConfStr,
+          onDidChangeContent: () => {
+            this.formData.responseToTableConfStr = responseToTableConfEditor.getValue()
+          },
+        })
+      } else {
+        responseToTableConfEditor.setValue(responseToTableConfStr)
+      }
     },
-    initCodeEditor(value) {
-      const el = document.getElementById('api-formatter-str')
-      editor = monaco.editor.create(el, {
+    initCodeEditor({ el, value, onDidChangeContent }) {
+      const editor = monaco.editor.create(el, {
         value,
         language: 'javascript',
         minimap: { enabled: false },
       })
-      editor.getModel().onDidChangeContent(() => {
-        this.formData.apiFormatterStr = editor.getValue()
-      })
+      editor.getModel().onDidChangeContent(onDidChangeContent)
+      return editor
     },
     onSubmit() {
       this.$refs.form.validate((isValid) => {
@@ -81,15 +115,23 @@ export default {
       })
     },
     submitForm() {
-      const { apiOrigin, apiFormatterStr } = this.formData
-      chrome.storage.sync.set({ apiOrigin, apiFormatterStr }, () => {
-        this.$message.success('保存成功，请刷新原页面后重试！')
-      })
+      const {
+        apiOrigin,
+        apiFormatterStr,
+        responseToTableConfStr,
+      } = this.formData
+      chrome.storage.sync.set(
+        { apiOrigin, apiFormatterStr, responseToTableConfStr },
+        () => {
+          this.$message.success('保存成功，请刷新原页面后重试！')
+        }
+      )
     },
     onReset() {
       const formData = {
         apiOrigin: API_ORIGIN,
         apiFormatterStr: API_FORMATTER_STR,
+        responseToTableConfStr: RESPONSE_TO_TABLE_CONF_STR,
       }
       chrome.storage.sync.set(formData, () => {
         this.initFormData()
@@ -113,12 +155,12 @@ export default {
 .el-form-item:last-child {
   text-align: center;
 }
-.form-item--code-editor ::v-deep .el-form-item__content {
-  height: 300px;
-}
-.code-editor-cont {
+.editor-cont {
   width: 100%;
-  height: 100%;
+  height: 300px;
   border: 1px solid $--border-color-base;
+}
+.editor-cont--height-small {
+  height: 200px;
 }
 </style>
