@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -64,6 +65,7 @@ module.exports = {
       template: path.resolve(__dirname, '../public/options.html'),
     }),
     new CleanObsoleteChunks(),
+    new MonacoWebpackPlugin(),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // determine the output path

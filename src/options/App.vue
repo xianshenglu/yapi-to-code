@@ -1,16 +1,16 @@
 <template>
   <div class="App">
     <h1>自定义配置页</h1>
-    <el-form ref="form" :model="formData" :rules="rules">
+    <el-form ref="form" :model="formData" :rules="rules" label-position="top">
       <el-form-item label="API 地址：" prop="apiOrigin">
         <el-input v-model="formData.apiOrigin"></el-input>
       </el-form-item>
-      <el-form-item label="自定义前端 API 代码：" prop="apiFormatterStr">
-        <el-input
-          v-model="formData.apiFormatterStr"
-          type="textarea"
-          :rows="10"
-        ></el-input>
+      <el-form-item
+        label="自定义前端 API 代码："
+        prop="apiFormatterStr"
+        class="form-item--code-editor"
+      >
+        <div id="api-formatter-str" class="code-editor-cont"></div>
       </el-form-item>
       <el-form-item>
         <el-button @click="onReset">重置为插件默认值</el-button>
@@ -22,8 +22,10 @@
 </template>
 
 <script>
+import * as monaco from 'monaco-editor'
 import { API_ORIGIN, API_FORMATTER_STR } from '../constants'
 
+let editor = null
 export default {
   name: 'App',
   data() {
@@ -38,7 +40,7 @@ export default {
       },
     }
   },
-  created() {
+  mounted() {
     this.initFormData()
   },
   methods: {
@@ -49,6 +51,25 @@ export default {
           apiFormatterStr = API_FORMATTER_STR,
         } = data
         Object.assign(this.formData, { apiOrigin, apiFormatterStr })
+        this.resetCodeEditor(apiFormatterStr)
+      })
+    },
+    resetCodeEditor(value) {
+      if (editor === null) {
+        this.initCodeEditor(value)
+        return
+      }
+      editor.setValue(value)
+    },
+    initCodeEditor(value) {
+      const el = document.getElementById('api-formatter-str')
+      editor = monaco.editor.create(el, {
+        value,
+        language: 'javascript',
+        minimap: { enabled: false },
+      })
+      editor.getModel().onDidChangeContent(() => {
+        this.formData.apiFormatterStr = editor.getValue()
       })
     },
     onSubmit() {
@@ -80,6 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/common/variables.scss';
 .App {
   display: flex;
   flex-flow: column;
@@ -90,5 +112,13 @@ export default {
 }
 .el-form-item:last-child {
   text-align: center;
+}
+.form-item--code-editor ::v-deep .el-form-item__content {
+  height: 300px;
+}
+.code-editor-cont {
+  width: 100%;
+  height: 100%;
+  border: 1px solid $--border-color-base;
 }
 </style>
