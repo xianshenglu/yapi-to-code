@@ -65,7 +65,27 @@ module.exports = {
       template: path.resolve(__dirname, '../public/options.html'),
     }),
     new CleanObsoleteChunks(),
-    new MonacoWebpackPlugin(),
+    new MonacoWebpackPlugin({
+      languages: ['javascript', 'typescript'],
+      features: [
+        '!accessibilityHelp',
+        '!anchorSelect',
+        '!codeAction',
+        '!fontZoom',
+        '!gotoError',
+        '!gotoLine',
+        '!gotoSymbol',
+        '!iPadShowKeyboard',
+        '!quickCommand',
+        '!quickHelp',
+        '!quickOutline',
+        '!referenceSearch',
+        '!toggleTabFocusMode',
+        '!transpose',
+        '!unusualLineTerminators',
+        '!viewportSemanticTokens',
+      ],
+    }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // determine the output path
