@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Building
+name: Build
 
 on:
   push:
@@ -34,9 +34,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Publish
+        run: npm run publish
+
       - name: Deploy Files
         run: |
           git config --local user.email "xianshenglu@qq.com"
           git config --local user.name "xianshenglu"
-          git add dist
+          git add .
           git diff --quiet && git diff --staged --quiet || git commit -am "chore: release by github actions" && git push

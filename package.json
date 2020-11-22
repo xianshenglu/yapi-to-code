@@ -11,7 +11,8 @@
     "lint": "eslint --fix --ext .js,.vue src/",
     "dev": "webpack --watch --config ./build/webpack.dev.conf.js",
     "build": "webpack --config ./build/webpack.prod.conf.js",
-    "analyze": "webpack --config ./build/webpack.prod.conf.js --analyze"
+    "analyze": "webpack --config ./build/webpack.prod.conf.js --analyze",
+    "publish": "node ./build/publish.js "
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "@babel/core": "^7.12.7",
     "@babel/preset-env": "^7.12.7",
     "@xianshenglu/eslint-config": "^1.0.0",
+    "archiver": "^5.1.0",
     "babel-loader": "^8.2.1",
     "babel-plugin-component": "^1.1.1",
     "copy-webpack-plugin": "^6.3.2",
