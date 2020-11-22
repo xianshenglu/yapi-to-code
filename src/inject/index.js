@@ -15,7 +15,7 @@ function init(config) {
       return getApiInfo(apiOrigin, { id })
     },
     // eslint-disable-next-line no-new-func
-    formatter: new Function(`return ${apiFormatterStr.trim()}`)(),
+    formatter: new Function(`return (${apiFormatterStr})`)(),
   })
   apiCodeGen.init()
 
