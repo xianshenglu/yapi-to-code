@@ -28,6 +28,7 @@
 
 <script>
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
+import { Message } from 'element-ui'
 import {
   API_ORIGIN,
   API_FORMATTER_STR,
@@ -123,7 +124,10 @@ export default {
       chrome.storage.sync.set(
         { apiOrigin, apiFormatterStr, responseToTableConfStr },
         () => {
-          this.$message.success('保存成功，请刷新原页面后重试！')
+          Message({
+            type: 'success',
+            message: '保存成功，请刷新原页面后重试！',
+          })
         }
       )
     },
@@ -135,7 +139,7 @@ export default {
       }
       chrome.storage.sync.set(formData, () => {
         this.initFormData()
-        this.$message.success('重置成功！')
+        Message({ type: 'success', message: '重置成功！' })
       })
     },
   },
