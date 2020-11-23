@@ -1,6 +1,6 @@
 {
   "name": "yapi-to-code",
-  "version": "0.1",
+  "version": "1.0",
   "description": "yapi-to-code!",
   "permissions": ["storage"],
   "background": {
