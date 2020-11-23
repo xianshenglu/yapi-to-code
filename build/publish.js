@@ -45,9 +45,8 @@ archive.on('error', function (err) {
 // pipe archive data to the file
 archive.pipe(output)
 
-// append files from a sub-directory and naming it `new-subdir` within the archive
-archive.directory('./dist/', './dist/')
-
+// append files from a sub-directory, putting its contents at the root of archive
+archive.directory('./dist/', false)
 // finalize the archive (ie we are done appending files but streams have to finish yet)
 // 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
 archive.finalize()
