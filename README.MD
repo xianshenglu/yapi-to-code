@@ -16,7 +16,7 @@ install by [chrome extension](https://chrome.google.com/webstore/detail/yapi-to-
 
 Or
 
-1. Clone the project
+1. Download the release file _[dist.zip](https://github.com/xianshenglu/yapi-to-code/raw/master/dist.zip)_
 
 ```bash
 git clone https://github.com/xianshenglu/yapi-to-code.git
@@ -47,6 +47,7 @@ git clone https://github.com/xianshenglu/yapi-to-code.git
 - [x] Highlight custom code
 - [x] Generate Table code
 - [ ] Generate mock response
+- [ ] Automate the publish and changeLog generation.
 - [ ] Refactor with vue3 and typescript.
 - [ ] Generate formData
 - [ ] Add tests
