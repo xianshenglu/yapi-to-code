@@ -1,6 +1,6 @@
 export const API_ORIGIN = 'https://yapi.baidu.com'
-
-export const API_FORMATTER_STR = function fn(data) {
+// todo refactor
+export const API_FORMATTER_STR = `function fn(data) {
   // 接受一个参数 data , 返回希望生成的代码
   const {
     data: { method, path },
@@ -15,19 +15,19 @@ export const API_FORMATTER_STR = function fn(data) {
   const hasReqBody = ['post', 'put'].includes(method.toLowerCase())
   const paramsStr = hasReqBody ? 'data' : ''
   const requestBodyStr = hasReqBody ? 'data' : ''
-  const resultStr = `
-        export function ${methodName} (${paramsStr}){  
+  const resultStr = \`
+        export function \${methodName} (\${paramsStr}){  
             return request({   
-               url: \`\${API_ORIGIN}\${path}\`,  
-               method: '${method}',
-               ${requestBodyStr}    
+               url: \\\`\\\${API_ORIGIN}\${path}\\\`,  
+               method: '\${method}',
+               \${requestBodyStr}    
             })
         }          
-        `
+        \`
   return resultStr
-}.toString()
+}`
 
-export const RESPONSE_TO_TABLE_CONF_STR = function fn(data) {
+export const RESPONSE_TO_TABLE_CONF_STR = `function fn(data) {
   // 接受一个参数 data , 返回希望生成的代码
   const resBody = JSON.parse(data.data.res_body)
   const tableColumnConf =
@@ -36,4 +36,4 @@ export const RESPONSE_TO_TABLE_CONF_STR = function fn(data) {
     return { prop, label: val.description }
   })
   return JSON.stringify(result, null, 2)
-}.toString()
+}`
