@@ -26,20 +26,34 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
+import { IStandaloneCodeEditor } from 'monaco-editor'
 import { Message } from 'element-ui'
 import {
   API_ORIGIN,
   API_FORMATTER_STR,
   RESPONSE_TO_TABLE_CONF_STR,
 } from '../constants'
+import { Rules } from '../typings/element-ui'
 
 let apiFormatterEditor = null
 let responseToTableConfEditor = null
+
+interface formData {
+  apiOrigin: string
+  apiFormatterStr: string
+  responseToTableConfStr: string
+}
+
+interface InitialData {
+  formData: formData
+  rules: Rules
+}
+
 export default {
   name: 'App',
-  data() {
+  data(): InitialData {
     return {
       formData: {
         apiOrigin: '',
@@ -57,7 +71,7 @@ export default {
     this.initFormData()
   },
   methods: {
-    initFormData() {
+    initFormData(): void {
       chrome.storage.sync.get(null, (data) => {
         const {
           apiOrigin = API_ORIGIN,
@@ -72,7 +86,10 @@ export default {
         this.resetCodeEditor(this.formData)
       })
     },
-    resetCodeEditor({ apiFormatterStr, responseToTableConfStr }) {
+    resetCodeEditor({
+      apiFormatterStr,
+      responseToTableConfStr,
+    }: formData): void {
       if (apiFormatterEditor === null) {
         const el = document.getElementById('api-formatter-str')
         apiFormatterEditor = this.initCodeEditor({
@@ -98,7 +115,7 @@ export default {
         responseToTableConfEditor.setValue(responseToTableConfStr)
       }
     },
-    initCodeEditor({ el, value, onDidChangeContent }) {
+    initCodeEditor({ el, value, onDidChangeContent }): IStandaloneCodeEditor {
       const editor = monaco.editor.create(el, {
         value,
         language: 'javascript',
@@ -107,7 +124,7 @@ export default {
       editor.getModel().onDidChangeContent(onDidChangeContent)
       return editor
     },
-    onSubmit() {
+    onSubmit(): void {
       this.$refs.form.validate((isValid) => {
         if (isValid === false) {
           return
@@ -115,7 +132,7 @@ export default {
         this.submitForm()
       })
     },
-    submitForm() {
+    submitForm(): void {
       const {
         apiOrigin,
         apiFormatterStr,
@@ -131,7 +148,7 @@ export default {
         }
       )
     },
-    onReset() {
+    onReset(): void {
       const formData = {
         apiOrigin: API_ORIGIN,
         apiFormatterStr: API_FORMATTER_STR,

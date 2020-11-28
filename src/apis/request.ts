@@ -1,7 +1,8 @@
-import Axios from 'axios'
+import Axios, { AxiosResponse } from 'axios'
 import _ from 'lodash'
+import { YApiResponseBody } from '../typings/apis'
 
-function handleErrorResponse(error) {
+function handleErrorResponse(error: Error) {
   let errorMsg = '未知错误！'
 
   const isMessageValid =
@@ -29,9 +30,12 @@ instance.interceptors.request.use(function (config) {
   return config
 }, handleErrorResponse)
 
-// 添加响应拦截器
-instance.interceptors.response.use(function (response) {
-  return response
-}, handleErrorResponse)
+// 添加响应拦截器 todo handle type
+instance.interceptors.response.use(function (
+  response: AxiosResponse<YApiResponseBody>
+): YApiResponseBody {
+  return response.data
+},
+handleErrorResponse)
 
 export default instance

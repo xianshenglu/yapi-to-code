@@ -8,9 +8,9 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   entry: {
-    options: './src/options/main.js',
-    background: './src/background/index.js',
-    inject: './src/inject/index.js',
+    options: './src/options/main.ts',
+    background: './src/background/index.ts',
+    inject: './src/inject/index.ts',
   },
   output: {
     filename: (pathData) => {
@@ -25,6 +25,7 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.esm.js',
     },
+    extensions: ['.wasm', '.ts', '.mjs', '.js', '.vue', '.json'],
   },
   module: {
     rules: [
@@ -33,7 +34,7 @@ module.exports = {
         loader: 'vue-loader',
       },
       {
-        test: /\.m?js$/,
+        test: /\.(m?js|ts)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

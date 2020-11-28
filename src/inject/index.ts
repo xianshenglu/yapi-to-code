@@ -8,7 +8,12 @@ import {
 import { getApiInfo } from '../apis'
 import { getApiId } from '../utils'
 
-function init(config) {
+interface InitConfig {
+  apiOrigin: string
+  apiFormatterStr: string
+  responseToTableConfStr: string
+}
+function init(config: InitConfig) {
   const {
     apiOrigin = API_ORIGIN,
     apiFormatterStr = API_FORMATTER_STR,
@@ -22,9 +27,10 @@ function init(config) {
     request: () => {
       return getApiInfo(apiOrigin, { id: getApiId() })
     },
-    // eslint-disable-next-line no-new-func
+    // eslint-disable-next-line
     formatter: new Function(`return (${apiFormatterStr})`)(),
   })
+
   apiCodeGen.init()
 
   const reqParamCodeGen = new CodeGen({
@@ -37,7 +43,7 @@ function init(config) {
     request: () => {
       return getApiInfo(apiOrigin, { id: getApiId() })
     },
-    // eslint-disable-next-line no-new-func
+    // eslint-disable-next-line
     formatter: new Function(`return (${responseToTableConfStr})`)(),
   })
   responseToTableConfGen.init()
