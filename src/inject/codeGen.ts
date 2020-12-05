@@ -4,9 +4,9 @@ import { YApiRequest, YApiResponseBody } from '../typings/apis'
 export default class CodeGen {
   el: HTMLElement
 
-  request: YApiRequest | void
+  request: YApiRequest
 
-  formatter: (arg: YApiResponseBody) => string | void
+  formatter: (arg: YApiResponseBody) => string
 
   static container: HTMLElement = CodeGen.initContainer()
 
@@ -26,8 +26,8 @@ export default class CodeGen {
     formatter = () => '',
   }: {
     name: string
-    request?: YApiRequest
-    formatter?: () => string
+    request: YApiRequest
+    formatter?: (arg: YApiResponseBody) => string
   }) {
     this.el = CodeGen.injectBtn(name)
     this.request = request
@@ -47,7 +47,7 @@ export default class CodeGen {
     const div: HTMLElement = document.createElement('div')
 
     Object.entries(styles).forEach(([key, val]) => {
-      div.style[key] = val
+      div.style[key as keyof typeof styles] = val
     })
 
     document.body.appendChild(div)

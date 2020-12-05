@@ -7,11 +7,12 @@ import {
 } from '../constants'
 import { getApiInfo } from '../apis'
 import { getApiId } from '../utils'
+import { apiToMockResponse } from '../formatters'
 
 interface InitConfig {
-  apiOrigin: string
-  apiFormatterStr: string
-  responseToTableConfStr: string
+  apiOrigin?: string
+  apiFormatterStr?: string
+  responseToTableConfStr?: string
 }
 function init(config: InitConfig) {
   const {
@@ -33,10 +34,10 @@ function init(config: InitConfig) {
 
   apiCodeGen.init()
 
-  const reqParamCodeGen = new CodeGen({
-    name: '生成 请求 FormData 代码',
-  })
-  reqParamCodeGen.hide()
+  // const reqParamCodeGen = new CodeGen({
+  //   name: '生成 请求 FormData 代码',
+  // })
+  // reqParamCodeGen.hide()
 
   const responseToTableConfGen = new CodeGen({
     name: '生成 响应 Table 代码',
@@ -50,8 +51,12 @@ function init(config: InitConfig) {
 
   const responseMockCodeGen = new CodeGen({
     name: '生成 响应 Mock 代码',
+    request: () => {
+      return getApiInfo(apiOrigin, { id: getApiId() })
+    },
+    formatter: apiToMockResponse,
   })
-  responseMockCodeGen.hide()
+  responseMockCodeGen.init()
 }
 
 chrome.storage.sync.get(null, init)

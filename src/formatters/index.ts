@@ -1,0 +1,1 @@
+export { apiToMockResponse } from './apiToMockResponse'
